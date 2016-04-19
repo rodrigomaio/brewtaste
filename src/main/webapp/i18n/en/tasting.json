@@ -1,0 +1,23 @@
+{
+    "brewtasteApp": {
+        "tasting" : {
+            "home": {
+                "title": "Tastings",
+                "createLabel": "Create a new Tasting",
+                "createOrEditLabel": "Create or edit a Tasting",
+                "search": "Search for Tasting"
+            },
+            "created": "A new Tasting is created with identifier {{ param }}",
+            "updated": "A Tasting is updated with identifier {{ param }}",
+            "deleted": "A Tasting is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tasting {{ id }}?"
+            },
+            "detail": {
+                "title": "Tasting"
+            },
+            "date": "Date",
+            "beer": "Beer"
+        }
+    }
+}

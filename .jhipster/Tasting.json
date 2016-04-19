@@ -1,0 +1,21 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "beer",
+            "otherEntityName": "beer",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "date",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20160419230200",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "tasting",
+    "pagination": "infinite-scroll"
+}

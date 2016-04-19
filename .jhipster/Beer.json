@@ -1,0 +1,21 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "tasting",
+            "otherEntityName": "tasting",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "beer"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20160419225644",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "beer",
+    "pagination": "pagination"
+}
