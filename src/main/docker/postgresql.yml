@@ -1,0 +1,12 @@
+version: '2'
+services:
+    brewtaste-postgresql:
+        container_name: brewtaste-postgresql
+        image: postgres:9.5.1
+        # volumes:
+        #     - ~/volumes/jhipster/brewtaste/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=brewtaste
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

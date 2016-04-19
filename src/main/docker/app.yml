@@ -1,0 +1,21 @@
+version: '2'
+services:
+    brewtaste-app:
+        image: brewtaste
+        external_links:
+            - brewtaste-postgresql:postgresql
+            - brewtaste-elasticsearch:elasticsearch
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/brewtaste
+            - SPRING_DATA_ELASTICSEARCH_CLUSTER_NODES=elasticsearch:9300
+        ports:
+            - 8080:8080
+    brewtaste-postgresql:
+        extends:
+            file: postgresql.yml
+            service: brewtaste-postgresql
+    brewtaste-elasticsearch:
+        extends:
+            file: elasticsearch.yml
+            service: brewtaste-elasticsearch
