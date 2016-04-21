@@ -5,17 +5,16 @@
         .module('brewtasteApp')
         .controller('BeerDialogController', BeerDialogController);
 
-    BeerDialogController.$inject = ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Beer', 'Tasting'];
+    BeerDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Beer', 'Tasting'];
 
-    function BeerDialogController ($scope, $stateParams, $uibModalInstance, entity, Beer, Tasting) {
+    function BeerDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Beer, Tasting) {
         var vm = this;
         vm.beer = entity;
         vm.tastings = Tasting.query();
-        vm.load = function(id) {
-            Beer.get({id : id}, function(result) {
-                vm.beer = result;
-            });
-        };
+
+        $timeout(function (){
+            angular.element('.form-group:eq(1)>input').focus();
+        });
 
         var onSaveSuccess = function (result) {
             $scope.$emit('brewtasteApp:beerUpdate', result);

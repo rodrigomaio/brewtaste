@@ -8,7 +8,7 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group">
+        <div class="form-group" ng-show="vm.tasting.id">
             <label for="id" translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.tasting.id" readonly />
@@ -25,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            <label translate="brewtasteApp.tasting.beer" for="field_beer">beer</label>
+            <label translate="brewtasteApp.tasting.beer" for="field_beer">Beer</label>
             <select class="form-control" id="field_beer" name="beer" ng-model="vm.tasting.beer" ng-options="beer as beer.name for beer in vm.beers track by beer.id">
                 <option value=""></option>
             </select>

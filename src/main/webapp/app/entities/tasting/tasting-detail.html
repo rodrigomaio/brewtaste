@@ -3,12 +3,12 @@
     <h2><span translate="brewtasteApp.tasting.detail.title">Tasting</span> {{vm.tasting.id}}</h2>
     <hr>
     <dl class="dl-horizontal">
-        <dt><span translate="brewtasteApp.tasting.date">Date</dt></dt>
+        <dt><span translate="brewtasteApp.tasting.date">Date</span></dt>
         <dd>
             <span>{{vm.tasting.date | date:'medium'}}</span>
         </dd>
         <hr>
-        <dt><span translate="brewtasteApp.tasting.beer">beer</span></dt>
+        <dt><span translate="brewtasteApp.tasting.beer">Beer</span></dt>
         <dd>
             <a ui-sref="beer-detail({id:vm.tasting.beer.id})">{{vm.tasting.beer.name}}</a>
         </dd>

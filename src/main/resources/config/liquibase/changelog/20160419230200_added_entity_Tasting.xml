@@ -16,7 +16,7 @@
     <!--
         Added the entity Tasting.
     -->
-    <changeSet id="20160419230200" author="jhipster">
+    <changeSet id="20160419230200-1" author="jhipster">
         <createTable tableName="tasting">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
@@ -30,11 +30,5 @@
         </createTable>
         <dropDefaultValue tableName="tasting" columnName="date" columnDataType="datetime"/>
         
-        <addForeignKeyConstraint baseColumnNames="beer_id"
-                                 baseTableName="tasting"
-                                 constraintName="fk_tasting_beer_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="beer"/>
-
     </changeSet>
 </databaseChangeLog>

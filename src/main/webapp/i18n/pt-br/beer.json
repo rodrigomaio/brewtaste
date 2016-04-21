@@ -3,15 +3,15 @@
         "beer" : {
             "home": {
                 "title": "Beers",
-                "createLabel": "Create a new Beer",
-                "createOrEditLabel": "Create or edit a Beer",
-                "search": "Search for Beer"
+                "createLabel": "Criar novo Beer",
+                "createOrEditLabel": "Criar ou editar Beer",
+                "search": "Pesquisar por Beer"
             },
-            "created": "A new Beer is created with identifier {{ param }}",
-            "updated": "A Beer is updated with identifier {{ param }}",
-            "deleted": "A Beer is deleted with identifier {{ param }}",
+            "created": "Um novo Beer é criado com o identificador {{ param }}",
+            "updated": "Um Beer é atualizado com o identificador {{ param }}",
+            "deleted": "Um Beer é deletado com o identificador {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Beer {{ id }}?"
+                "question": "Tem certeza de que deseja excluir Beer {{ id }}?"
             },
             "detail": {
                 "title": "Beer"

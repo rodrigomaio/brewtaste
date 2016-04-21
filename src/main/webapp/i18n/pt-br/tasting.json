@@ -3,15 +3,15 @@
         "tasting" : {
             "home": {
                 "title": "Tastings",
-                "createLabel": "Create a new Tasting",
-                "createOrEditLabel": "Create or edit a Tasting",
-                "search": "Search for Tasting"
+                "createLabel": "Criar novo Tasting",
+                "createOrEditLabel": "Criar ou editar Tasting",
+                "search": "Pesquisar por Tasting"
             },
-            "created": "A new Tasting is created with identifier {{ param }}",
-            "updated": "A Tasting is updated with identifier {{ param }}",
-            "deleted": "A Tasting is deleted with identifier {{ param }}",
+            "created": "Um novo Tasting é criado com o identificador {{ param }}",
+            "updated": "Um Tasting é atualizado com o identificador {{ param }}",
+            "deleted": "Um Tasting é deletado com o identificador {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Tasting {{ id }}?"
+                "question": "Tem certeza de que deseja excluir Tasting {{ id }}?"
             },
             "detail": {
                 "title": "Tasting"
