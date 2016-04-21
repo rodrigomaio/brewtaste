@@ -72,6 +72,12 @@
                         entity: function () {
                             return {
                                 date: null,
+                                appearance: null,
+                                aroma: null,
+                                flavor: null,
+                                mouthfeel: null,
+                                finish: null,
+                                generalImpression: null,
                                 id: null
                             };
                         }

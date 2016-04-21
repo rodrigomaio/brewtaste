@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -48,7 +49,7 @@ public class TastingResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Tasting> createTasting(@RequestBody Tasting tasting) throws URISyntaxException {
+    public ResponseEntity<Tasting> createTasting(@Valid @RequestBody Tasting tasting) throws URISyntaxException {
         log.debug("REST request to save Tasting : {}", tasting);
         if (tasting.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("tasting", "idexists", "A new tasting cannot already have an ID")).body(null);
@@ -72,7 +73,7 @@ public class TastingResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Tasting> updateTasting(@RequestBody Tasting tasting) throws URISyntaxException {
+    public ResponseEntity<Tasting> updateTasting(@Valid @RequestBody Tasting tasting) throws URISyntaxException {
         log.debug("REST request to update Tasting : {}", tasting);
         if (tasting.getId() == null) {
             return createTasting(tasting);

@@ -37,6 +37,12 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="date"><span translate="brewtasteApp.tasting.date">Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="appearance"><span translate="brewtasteApp.tasting.appearance">Appearance</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="aroma"><span translate="brewtasteApp.tasting.aroma">Aroma</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="flavor"><span translate="brewtasteApp.tasting.flavor">Flavor</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="mouthfeel"><span translate="brewtasteApp.tasting.mouthfeel">Mouthfeel</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="finish"><span translate="brewtasteApp.tasting.finish">Finish</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="generalImpression"><span translate="brewtasteApp.tasting.generalImpression">General Impression</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="beer.name"><span translate="brewtasteApp.tasting.beer">Beer</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -45,6 +51,12 @@
                 <tr ng-repeat="tasting in vm.tastings track by tasting.id">
                     <td><a ui-sref="tasting-detail({id:tasting.id})">{{tasting.id}}</a></td>
                     <td>{{tasting.date | date:'medium'}}</td>
+                    <td>{{tasting.appearance}}</td>
+                    <td>{{tasting.aroma}}</td>
+                    <td>{{tasting.flavor}}</td>
+                    <td>{{tasting.mouthfeel}}</td>
+                    <td>{{tasting.finish}}</td>
+                    <td>{{tasting.generalImpression}}</td>
                     <td>
                         <a ui-sref="beer-detail({id:tasting.beer.id})">{{tasting.beer.name}}</a>
                     </td>

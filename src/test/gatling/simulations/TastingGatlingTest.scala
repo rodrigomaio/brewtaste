@@ -67,7 +67,7 @@ class TastingGatlingTest extends Simulation {
             .exec(http("Create new tasting")
             .post("/api/tastings")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "date":"2020-01-01T00:00:00.000Z"}""")).asJSON
+            .body(StringBody("""{"id":null, "date":"2020-01-01T00:00:00.000Z", "appearance":"SAMPLE_TEXT", "aroma":"SAMPLE_TEXT", "flavor":"SAMPLE_TEXT", "mouthfeel":"SAMPLE_TEXT", "finish":"SAMPLE_TEXT", "generalImpression":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_tasting_url"))).exitHereIfFailed
             .pause(10)

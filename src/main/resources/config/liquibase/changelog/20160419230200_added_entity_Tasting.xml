@@ -25,6 +25,30 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="appearance" type="varchar(250)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="aroma" type="varchar(250)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="flavor" type="varchar(250)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="mouthfeel" type="varchar(250)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="finish" type="varchar(250)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="general_impression" type="varchar(1250)">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="beer_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>

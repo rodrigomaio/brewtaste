@@ -17,6 +17,12 @@
                 "title": "Tasting"
             },
             "date": "Date",
+            "appearance": "Appearance",
+            "aroma": "Aroma",
+            "flavor": "Flavor",
+            "mouthfeel": "Mouthfeel",
+            "finish": "Finish",
+            "generalImpression": "General Impression",
             "beer": "Beer"
         }
     }
