@@ -25,6 +25,34 @@
                 <constraints nullable="true" />
             </column>
             
+            <column name="rate_beer_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="abv" type="double">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="overall_rating" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="style_rating" type="integer">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="style" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="country" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="brewery" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         

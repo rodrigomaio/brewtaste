@@ -37,6 +37,13 @@
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span translate="brewtasteApp.beer.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="rateBeerId"><span translate="brewtasteApp.beer.rateBeerId">Rate Beer Id</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="abv"><span translate="brewtasteApp.beer.abv">Abv</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="overallRating"><span translate="brewtasteApp.beer.overallRating">Overall Rating</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="styleRating"><span translate="brewtasteApp.beer.styleRating">Style Rating</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="style"><span translate="brewtasteApp.beer.style">Style</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="country"><span translate="brewtasteApp.beer.country">Country</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="brewery"><span translate="brewtasteApp.beer.brewery">Brewery</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -44,6 +51,13 @@
                 <tr ng-repeat="beer in vm.beers track by beer.id">
                     <td><a ui-sref="beer-detail({id:beer.id})">{{beer.id}}</a></td>
                     <td>{{beer.name}}</td>
+                    <td>{{beer.rateBeerId}}</td>
+                    <td>{{beer.abv}}</td>
+                    <td>{{beer.overallRating}}</td>
+                    <td>{{beer.styleRating}}</td>
+                    <td>{{beer.style}}</td>
+                    <td>{{beer.country}}</td>
+                    <td>{{beer.brewery}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

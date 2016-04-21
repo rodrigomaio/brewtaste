@@ -1,5 +1,5 @@
 
-<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -17,6 +17,78 @@
             <label class="control-label" translate="brewtasteApp.beer.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
                     ng-model="vm.beer.name"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="brewtasteApp.beer.rateBeerId" for="field_rateBeerId">Rate Beer Id</label>
+            <input type="number" class="form-control" name="rateBeerId" id="field_rateBeerId"
+                    ng-model="vm.beer.rateBeerId"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="brewtasteApp.beer.abv" for="field_abv">Abv</label>
+            <input type="number" class="form-control" name="abv" id="field_abv"
+                    ng-model="vm.beer.abv"
+                    min="0" />
+            <div ng-show="editForm.abv.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.abv.$error.min" translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.abv.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="brewtasteApp.beer.overallRating" for="field_overallRating">Overall Rating</label>
+            <input type="number" class="form-control" name="overallRating" id="field_overallRating"
+                    ng-model="vm.beer.overallRating"
+                    min="0" />
+            <div ng-show="editForm.overallRating.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.overallRating.$error.min" translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.overallRating.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="brewtasteApp.beer.styleRating" for="field_styleRating">Style Rating</label>
+            <input type="number" class="form-control" name="styleRating" id="field_styleRating"
+                    ng-model="vm.beer.styleRating"
+                    min="0" />
+            <div ng-show="editForm.styleRating.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.styleRating.$error.min" translate="entity.validation.min" translate-value-min="0">
+                    This field should be more than 0.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.styleRating.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="brewtasteApp.beer.style" for="field_style">Style</label>
+            <input type="text" class="form-control" name="style" id="field_style"
+                    ng-model="vm.beer.style"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="brewtasteApp.beer.country" for="field_country">Country</label>
+            <input type="text" class="form-control" name="country" id="field_country"
+                    ng-model="vm.beer.country"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="brewtasteApp.beer.brewery" for="field_brewery">Brewery</label>
+            <input type="text" class="form-control" name="brewery" id="field_brewery"
+                    ng-model="vm.beer.brewery"
                      />
         </div>
 

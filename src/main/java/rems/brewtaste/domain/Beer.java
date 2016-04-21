@@ -6,6 +6,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +30,30 @@ public class Beer implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "rate_beer_id")
+    private Long rateBeerId;
+
+    @Min(value = 0)
+    @Column(name = "abv")
+    private Double abv;
+
+    @Min(value = 0)
+    @Column(name = "overall_rating")
+    private Integer overallRating;
+
+    @Min(value = 0)
+    @Column(name = "style_rating")
+    private Integer styleRating;
+
+    @Column(name = "style")
+    private String style;
+
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "brewery")
+    private String brewery;
+
     @OneToMany(mappedBy = "beer")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -48,6 +73,62 @@ public class Beer implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getRateBeerId() {
+        return rateBeerId;
+    }
+
+    public void setRateBeerId(Long rateBeerId) {
+        this.rateBeerId = rateBeerId;
+    }
+
+    public Double getAbv() {
+        return abv;
+    }
+
+    public void setAbv(Double abv) {
+        this.abv = abv;
+    }
+
+    public Integer getOverallRating() {
+        return overallRating;
+    }
+
+    public void setOverallRating(Integer overallRating) {
+        this.overallRating = overallRating;
+    }
+
+    public Integer getStyleRating() {
+        return styleRating;
+    }
+
+    public void setStyleRating(Integer styleRating) {
+        this.styleRating = styleRating;
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getBrewery() {
+        return brewery;
+    }
+
+    public void setBrewery(String brewery) {
+        this.brewery = brewery;
     }
 
     public Set<Tasting> getTastings() {
@@ -83,6 +164,13 @@ public class Beer implements Serializable {
         return "Beer{" +
             "id=" + id +
             ", name='" + name + "'" +
+            ", rateBeerId='" + rateBeerId + "'" +
+            ", abv='" + abv + "'" +
+            ", overallRating='" + overallRating + "'" +
+            ", styleRating='" + styleRating + "'" +
+            ", style='" + style + "'" +
+            ", country='" + country + "'" +
+            ", brewery='" + brewery + "'" +
             '}';
     }
 }

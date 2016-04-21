@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -48,7 +49,7 @@ public class BeerResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Beer> createBeer(@RequestBody Beer beer) throws URISyntaxException {
+    public ResponseEntity<Beer> createBeer(@Valid @RequestBody Beer beer) throws URISyntaxException {
         log.debug("REST request to save Beer : {}", beer);
         if (beer.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("beer", "idexists", "A new beer cannot already have an ID")).body(null);
@@ -72,7 +73,7 @@ public class BeerResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
-    public ResponseEntity<Beer> updateBeer(@RequestBody Beer beer) throws URISyntaxException {
+    public ResponseEntity<Beer> updateBeer(@Valid @RequestBody Beer beer) throws URISyntaxException {
         log.debug("REST request to update Beer : {}", beer);
         if (beer.getId() == null) {
             return createBeer(beer);

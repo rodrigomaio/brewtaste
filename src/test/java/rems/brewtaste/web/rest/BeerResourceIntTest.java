@@ -46,6 +46,24 @@ public class BeerResourceIntTest {
     private static final String DEFAULT_NAME = "AAAAA";
     private static final String UPDATED_NAME = "BBBBB";
 
+    private static final Long DEFAULT_RATE_BEER_ID = 1L;
+    private static final Long UPDATED_RATE_BEER_ID = 2L;
+
+    private static final Double DEFAULT_ABV = 0D;
+    private static final Double UPDATED_ABV = 1D;
+
+    private static final Integer DEFAULT_OVERALL_RATING = 0;
+    private static final Integer UPDATED_OVERALL_RATING = 1;
+
+    private static final Integer DEFAULT_STYLE_RATING = 0;
+    private static final Integer UPDATED_STYLE_RATING = 1;
+    private static final String DEFAULT_STYLE = "AAAAA";
+    private static final String UPDATED_STYLE = "BBBBB";
+    private static final String DEFAULT_COUNTRY = "AAAAA";
+    private static final String UPDATED_COUNTRY = "BBBBB";
+    private static final String DEFAULT_BREWERY = "AAAAA";
+    private static final String UPDATED_BREWERY = "BBBBB";
+
     @Inject
     private BeerRepository beerRepository;
 
@@ -80,6 +98,13 @@ public class BeerResourceIntTest {
         beerSearchRepository.deleteAll();
         beer = new Beer();
         beer.setName(DEFAULT_NAME);
+        beer.setRateBeerId(DEFAULT_RATE_BEER_ID);
+        beer.setAbv(DEFAULT_ABV);
+        beer.setOverallRating(DEFAULT_OVERALL_RATING);
+        beer.setStyleRating(DEFAULT_STYLE_RATING);
+        beer.setStyle(DEFAULT_STYLE);
+        beer.setCountry(DEFAULT_COUNTRY);
+        beer.setBrewery(DEFAULT_BREWERY);
     }
 
     @Test
@@ -99,6 +124,13 @@ public class BeerResourceIntTest {
         assertThat(beers).hasSize(databaseSizeBeforeCreate + 1);
         Beer testBeer = beers.get(beers.size() - 1);
         assertThat(testBeer.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testBeer.getRateBeerId()).isEqualTo(DEFAULT_RATE_BEER_ID);
+        assertThat(testBeer.getAbv()).isEqualTo(DEFAULT_ABV);
+        assertThat(testBeer.getOverallRating()).isEqualTo(DEFAULT_OVERALL_RATING);
+        assertThat(testBeer.getStyleRating()).isEqualTo(DEFAULT_STYLE_RATING);
+        assertThat(testBeer.getStyle()).isEqualTo(DEFAULT_STYLE);
+        assertThat(testBeer.getCountry()).isEqualTo(DEFAULT_COUNTRY);
+        assertThat(testBeer.getBrewery()).isEqualTo(DEFAULT_BREWERY);
 
         // Validate the Beer in ElasticSearch
         Beer beerEs = beerSearchRepository.findOne(testBeer.getId());
@@ -116,7 +148,14 @@ public class BeerResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(beer.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+                .andExpect(jsonPath("$.[*].rateBeerId").value(hasItem(DEFAULT_RATE_BEER_ID.intValue())))
+                .andExpect(jsonPath("$.[*].abv").value(hasItem(DEFAULT_ABV.doubleValue())))
+                .andExpect(jsonPath("$.[*].overallRating").value(hasItem(DEFAULT_OVERALL_RATING)))
+                .andExpect(jsonPath("$.[*].styleRating").value(hasItem(DEFAULT_STYLE_RATING)))
+                .andExpect(jsonPath("$.[*].style").value(hasItem(DEFAULT_STYLE.toString())))
+                .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
+                .andExpect(jsonPath("$.[*].brewery").value(hasItem(DEFAULT_BREWERY.toString())));
     }
 
     @Test
@@ -130,7 +169,14 @@ public class BeerResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(beer.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.rateBeerId").value(DEFAULT_RATE_BEER_ID.intValue()))
+            .andExpect(jsonPath("$.abv").value(DEFAULT_ABV.doubleValue()))
+            .andExpect(jsonPath("$.overallRating").value(DEFAULT_OVERALL_RATING))
+            .andExpect(jsonPath("$.styleRating").value(DEFAULT_STYLE_RATING))
+            .andExpect(jsonPath("$.style").value(DEFAULT_STYLE.toString()))
+            .andExpect(jsonPath("$.country").value(DEFAULT_COUNTRY.toString()))
+            .andExpect(jsonPath("$.brewery").value(DEFAULT_BREWERY.toString()));
     }
 
     @Test
@@ -153,6 +199,13 @@ public class BeerResourceIntTest {
         Beer updatedBeer = new Beer();
         updatedBeer.setId(beer.getId());
         updatedBeer.setName(UPDATED_NAME);
+        updatedBeer.setRateBeerId(UPDATED_RATE_BEER_ID);
+        updatedBeer.setAbv(UPDATED_ABV);
+        updatedBeer.setOverallRating(UPDATED_OVERALL_RATING);
+        updatedBeer.setStyleRating(UPDATED_STYLE_RATING);
+        updatedBeer.setStyle(UPDATED_STYLE);
+        updatedBeer.setCountry(UPDATED_COUNTRY);
+        updatedBeer.setBrewery(UPDATED_BREWERY);
 
         restBeerMockMvc.perform(put("/api/beers")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -164,6 +217,13 @@ public class BeerResourceIntTest {
         assertThat(beers).hasSize(databaseSizeBeforeUpdate);
         Beer testBeer = beers.get(beers.size() - 1);
         assertThat(testBeer.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testBeer.getRateBeerId()).isEqualTo(UPDATED_RATE_BEER_ID);
+        assertThat(testBeer.getAbv()).isEqualTo(UPDATED_ABV);
+        assertThat(testBeer.getOverallRating()).isEqualTo(UPDATED_OVERALL_RATING);
+        assertThat(testBeer.getStyleRating()).isEqualTo(UPDATED_STYLE_RATING);
+        assertThat(testBeer.getStyle()).isEqualTo(UPDATED_STYLE);
+        assertThat(testBeer.getCountry()).isEqualTo(UPDATED_COUNTRY);
+        assertThat(testBeer.getBrewery()).isEqualTo(UPDATED_BREWERY);
 
         // Validate the Beer in ElasticSearch
         Beer beerEs = beerSearchRepository.findOne(testBeer.getId());
@@ -203,6 +263,13 @@ public class BeerResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(beer.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].rateBeerId").value(hasItem(DEFAULT_RATE_BEER_ID.intValue())))
+            .andExpect(jsonPath("$.[*].abv").value(hasItem(DEFAULT_ABV.doubleValue())))
+            .andExpect(jsonPath("$.[*].overallRating").value(hasItem(DEFAULT_OVERALL_RATING)))
+            .andExpect(jsonPath("$.[*].styleRating").value(hasItem(DEFAULT_STYLE_RATING)))
+            .andExpect(jsonPath("$.[*].style").value(hasItem(DEFAULT_STYLE.toString())))
+            .andExpect(jsonPath("$.[*].country").value(hasItem(DEFAULT_COUNTRY.toString())))
+            .andExpect(jsonPath("$.[*].brewery").value(hasItem(DEFAULT_BREWERY.toString())));
     }
 }

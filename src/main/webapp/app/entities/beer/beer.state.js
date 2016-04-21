@@ -92,6 +92,13 @@
                         entity: function () {
                             return {
                                 name: null,
+                                rateBeerId: null,
+                                abv: null,
+                                overallRating: null,
+                                styleRating: null,
+                                style: null,
+                                country: null,
+                                brewery: null,
                                 id: null
                             };
                         }

@@ -67,7 +67,7 @@ class BeerGatlingTest extends Simulation {
             .exec(http("Create new beer")
             .post("/api/beers")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "rateBeerId":null, "abv":null, "overallRating":"0", "styleRating":"0", "style":"SAMPLE_TEXT", "country":"SAMPLE_TEXT", "brewery":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_beer_url"))).exitHereIfFailed
             .pause(10)

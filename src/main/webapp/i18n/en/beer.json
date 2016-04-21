@@ -17,6 +17,13 @@
                 "title": "Beer"
             },
             "name": "Name",
+            "rateBeerId": "Rate Beer Id",
+            "abv": "Abv",
+            "overallRating": "Overall Rating",
+            "styleRating": "Style Rating",
+            "style": "Style",
+            "country": "Country",
+            "brewery": "Brewery",
             "tasting": "Tasting"
         }
     }
