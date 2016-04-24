@@ -1,6 +1,7 @@
-# brewtaste
+# BrewTaste
 
-This application was generated using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
+A log of tastings for sommeliers and beer enthusiasts.
+
 
 ## Development
 
@@ -76,6 +77,9 @@ To setup this project in Jenkins, use the following configuration:
         ````
 * Post-build Actions
     * Publish JUnit test result report / Test Report XMLs: `build/test-results/*.xml,build/reports/e2e/*.xml`
+
+---
+This application was bootstrapped using JHipster, you can find documentation and help at [https://jhipster.github.io](https://jhipster.github.io).
 
 [JHipster]: https://jhipster.github.io/
 [Node.js]: https://nodejs.org/
