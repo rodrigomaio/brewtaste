@@ -105,6 +105,8 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.jsoup', name: 'jsoup', version: jsoup_version
+
     compile group: 'io.dropwizard.metrics', name: 'metrics-core'
     compile group: 'io.dropwizard.metrics', name: 'metrics-annotation', version: dropwizard_metrics_version
     compile group: 'io.dropwizard.metrics', name: 'metrics-ehcache', version: dropwizard_metrics_version

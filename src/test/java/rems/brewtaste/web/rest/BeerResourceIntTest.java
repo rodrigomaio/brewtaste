@@ -1,8 +1,11 @@
 package rems.brewtaste.web.rest;
 
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import rems.brewtaste.BrewtasteApp;
 import rems.brewtaste.domain.Beer;
 import rems.brewtaste.repository.BeerRepository;
+import rems.brewtaste.repository.RateBeerRepository;
 import rems.brewtaste.service.BeerService;
 import rems.brewtaste.repository.search.BeerSearchRepository;
 
@@ -22,12 +25,16 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import rems.brewtaste.service.RateBeerService;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -67,8 +74,16 @@ public class BeerResourceIntTest {
     @Inject
     private BeerRepository beerRepository;
 
+    @InjectMocks
     @Inject
     private BeerService beerService;
+
+    @InjectMocks
+    @Inject
+    private RateBeerService rateBeerService;
+
+    @Mock
+    private RateBeerRepository rateBeerRepository;
 
     @Inject
     private BeerSearchRepository beerSearchRepository;
@@ -87,6 +102,7 @@ public class BeerResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         BeerResource beerResource = new BeerResource();
+        ReflectionTestUtils.setField(beerResource, "beerService", beerService);
         ReflectionTestUtils.setField(beerResource, "beerService", beerService);
         this.restBeerMockMvc = MockMvcBuilders.standaloneSetup(beerResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -110,6 +126,7 @@ public class BeerResourceIntTest {
     @Test
     @Transactional
     public void createBeer() throws Exception {
+        when(rateBeerRepository.findOneById(anyLong())).thenReturn(Optional.of(beer));
         int databaseSizeBeforeCreate = beerRepository.findAll().size();
 
         // Create the Beer
@@ -191,6 +208,7 @@ public class BeerResourceIntTest {
     @Transactional
     public void updateBeer() throws Exception {
         // Initialize the database
+        when(rateBeerRepository.findOneById(anyLong())).thenReturn(Optional.of(beer));
         beerService.save(beer);
 
         int databaseSizeBeforeUpdate = beerRepository.findAll().size();
@@ -234,6 +252,7 @@ public class BeerResourceIntTest {
     @Transactional
     public void deleteBeer() throws Exception {
         // Initialize the database
+        when(rateBeerRepository.findOneById(anyLong())).thenReturn(Optional.of(beer));
         beerService.save(beer);
 
         int databaseSizeBeforeDelete = beerRepository.findAll().size();
@@ -256,6 +275,7 @@ public class BeerResourceIntTest {
     @Transactional
     public void searchBeer() throws Exception {
         // Initialize the database
+        when(rateBeerRepository.findOneById(anyLong())).thenReturn(Optional.of(beer));
         beerService.save(beer);
 
         // Search the beer
