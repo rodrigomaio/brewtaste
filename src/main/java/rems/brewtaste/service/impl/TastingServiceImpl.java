@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -41,6 +42,9 @@ public class TastingServiceImpl implements TastingService{
      */
     public Tasting save(Tasting tasting) {
         log.debug("Request to save Tasting : {}", tasting);
+        if (tasting.getDate() == null) {
+            tasting.setDate(ZonedDateTime.now());
+        }
         Tasting result = tastingRepository.save(tasting);
         tastingSearchRepository.save(result);
         return result;
