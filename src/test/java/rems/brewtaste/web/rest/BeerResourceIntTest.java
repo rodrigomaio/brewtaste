@@ -61,6 +61,7 @@ public class BeerResourceIntTest {
 
     private static final Integer DEFAULT_OVERALL_RATING = 0;
     private static final Integer UPDATED_OVERALL_RATING = 1;
+    private static final Integer RATEBEER_OVERALL_RATING = 99;
 
     private static final Integer DEFAULT_STYLE_RATING = 0;
     private static final Integer UPDATED_STYLE_RATING = 1;
@@ -126,7 +127,12 @@ public class BeerResourceIntTest {
     @Test
     @Transactional
     public void createBeer() throws Exception {
-        when(rateBeerRepository.findOneById(anyLong())).thenReturn(Optional.of(beer));
+        // Simulate RateBeer result
+        beer.setOverallRating(null);
+        final Beer rateBeer = new Beer();
+        rateBeer.setOverallRating(RATEBEER_OVERALL_RATING);
+        when(rateBeerRepository.findOneById(anyLong())).thenReturn(Optional.of(rateBeer));
+
         int databaseSizeBeforeCreate = beerRepository.findAll().size();
 
         // Create the Beer
@@ -143,7 +149,7 @@ public class BeerResourceIntTest {
         assertThat(testBeer.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testBeer.getRateBeerId()).isEqualTo(DEFAULT_RATE_BEER_ID);
         assertThat(testBeer.getAbv()).isEqualTo(DEFAULT_ABV);
-        assertThat(testBeer.getOverallRating()).isEqualTo(DEFAULT_OVERALL_RATING);
+        assertThat(testBeer.getOverallRating()).isEqualTo(RATEBEER_OVERALL_RATING);
         assertThat(testBeer.getStyleRating()).isEqualTo(DEFAULT_STYLE_RATING);
         assertThat(testBeer.getStyle()).isEqualTo(DEFAULT_STYLE);
         assertThat(testBeer.getCountry()).isEqualTo(DEFAULT_COUNTRY);
