@@ -1,5 +1,7 @@
 # BrewTaste
 
+[![Build Status](https://travis-ci.org/rodrigomaio/brewtaste.svg?branch=master)](https://travis-ci.org/rodrigomaio/brewtaste)
+
 A log of tastings for sommeliers and beer enthusiasts.
 
 
