@@ -23,7 +23,8 @@
             "mouthfeel": "Mouthfeel",
             "finish": "Finish",
             "generalImpression": "General Impression",
-            "beer": "Beer"
+            "beer": "Beer",
+            "user": "User"
         }
     }
 }

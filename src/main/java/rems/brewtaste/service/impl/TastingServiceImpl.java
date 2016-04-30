@@ -1,23 +1,21 @@
 package rems.brewtaste.service.impl;
 
-import rems.brewtaste.service.TastingService;
-import rems.brewtaste.domain.Tasting;
-import rems.brewtaste.repository.TastingRepository;
-import rems.brewtaste.repository.search.TastingSearchRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import rems.brewtaste.domain.Tasting;
+import rems.brewtaste.repository.TastingRepository;
+import rems.brewtaste.repository.UserRepository;
+import rems.brewtaste.repository.search.TastingSearchRepository;
+import rems.brewtaste.service.TastingService;
 
 import javax.inject.Inject;
 import java.time.ZonedDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 /**
  * Service Implementation for managing Tasting.
@@ -27,16 +25,19 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class TastingServiceImpl implements TastingService{
 
     private final Logger log = LoggerFactory.getLogger(TastingServiceImpl.class);
-    
+
+    @Inject
+    private UserRepository userRepository;
+
     @Inject
     private TastingRepository tastingRepository;
-    
+
     @Inject
     private TastingSearchRepository tastingSearchRepository;
-    
+
     /**
      * Save a tasting.
-     * 
+     *
      * @param tasting the entity to save
      * @return the persisted entity
      */
@@ -52,14 +53,14 @@ public class TastingServiceImpl implements TastingService{
 
     /**
      *  Get all the tastings.
-     *  
+     *
      *  @param pageable the pagination information
      *  @return the list of entities
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Page<Tasting> findAll(Pageable pageable) {
         log.debug("Request to get all Tastings");
-        Page<Tasting> result = tastingRepository.findAll(pageable); 
+        Page<Tasting> result = tastingRepository.findByUserIsCurrentUser(pageable);
         return result;
     }
 
@@ -69,7 +70,7 @@ public class TastingServiceImpl implements TastingService{
      *  @param id the id of the entity
      *  @return the entity
      */
-    @Transactional(readOnly = true) 
+    @Transactional(readOnly = true)
     public Tasting findOne(Long id) {
         log.debug("Request to get Tasting : {}", id);
         Tasting tasting = tastingRepository.findOne(id);
@@ -78,7 +79,7 @@ public class TastingServiceImpl implements TastingService{
 
     /**
      *  Delete the  tasting by id.
-     *  
+     *
      *  @param id the id of the entity
      */
     public void delete(Long id) {

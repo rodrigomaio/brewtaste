@@ -2,7 +2,9 @@ package rems.brewtaste.web.rest;
 
 import rems.brewtaste.BrewtasteApp;
 import rems.brewtaste.domain.Tasting;
+import rems.brewtaste.domain.User;
 import rems.brewtaste.repository.TastingRepository;
+import rems.brewtaste.repository.UserRepository;
 import rems.brewtaste.service.TastingService;
 import rems.brewtaste.repository.search.TastingSearchRepository;
 
@@ -22,9 +24,11 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import rems.brewtaste.service.UserService;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.servlet.Filter;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +36,8 @@ import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -76,10 +82,19 @@ public class TastingResourceIntTest {
     private TastingSearchRepository tastingSearchRepository;
 
     @Inject
+    private UserRepository userRepository;
+
+    @Inject
+    private UserService userService;
+
+    @Inject
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Inject
     private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+
+    @Inject
+    private Filter springSecurityFilterChain;
 
     private MockMvc restTastingMockMvc;
 
@@ -90,7 +105,9 @@ public class TastingResourceIntTest {
         MockitoAnnotations.initMocks(this);
         TastingResource tastingResource = new TastingResource();
         ReflectionTestUtils.setField(tastingResource, "tastingService", tastingService);
+        ReflectionTestUtils.setField(tastingResource, "userService", userService);
         this.restTastingMockMvc = MockMvcBuilders.standaloneSetup(tastingResource)
+            .addFilters(springSecurityFilterChain)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setMessageConverters(jacksonMessageConverter).build();
     }
@@ -116,6 +133,8 @@ public class TastingResourceIntTest {
         // Create the Tasting
 
         restTastingMockMvc.perform(post("/api/tastings")
+                .with(user("user"))
+                .with(csrf())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(tasting)))
                 .andExpect(status().isCreated());
@@ -141,10 +160,13 @@ public class TastingResourceIntTest {
     @Transactional
     public void getAllTastings() throws Exception {
         // Initialize the database
+        final User user = userService.getUserWithAuthoritiesByLogin("user").get();
+        final User savedUser = userRepository.save(user);
+        tasting.setUser(savedUser);
         tastingRepository.saveAndFlush(tasting);
 
         // Get all the tastings
-        restTastingMockMvc.perform(get("/api/tastings?sort=id,desc"))
+        restTastingMockMvc.perform(get("/api/tastings?sort=id,desc").with(user("user")).with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(tasting.getId().intValue())))
@@ -164,7 +186,8 @@ public class TastingResourceIntTest {
         tastingRepository.saveAndFlush(tasting);
 
         // Get the tasting
-        restTastingMockMvc.perform(get("/api/tastings/{id}", tasting.getId()))
+        restTastingMockMvc.perform(get("/api/tastings/{id}", tasting.getId())
+            .with(user("user")))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(tasting.getId().intValue()))
@@ -181,7 +204,8 @@ public class TastingResourceIntTest {
     @Transactional
     public void getNonExistingTasting() throws Exception {
         // Get the tasting
-        restTastingMockMvc.perform(get("/api/tastings/{id}", Long.MAX_VALUE))
+        restTastingMockMvc.perform(get("/api/tastings/{id}", Long.MAX_VALUE)
+                .with(user("user")))
                 .andExpect(status().isNotFound());
     }
 
@@ -205,6 +229,8 @@ public class TastingResourceIntTest {
         updatedTasting.setGeneralImpression(UPDATED_GENERAL_IMPRESSION);
 
         restTastingMockMvc.perform(put("/api/tastings")
+                .with(user("user"))
+                .with(csrf())
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(updatedTasting)))
                 .andExpect(status().isOk());
@@ -236,6 +262,8 @@ public class TastingResourceIntTest {
 
         // Get the tasting
         restTastingMockMvc.perform(delete("/api/tastings/{id}", tasting.getId())
+                .with(user("user"))
+                .with(csrf())
                 .accept(TestUtil.APPLICATION_JSON_UTF8))
                 .andExpect(status().isOk());
 
@@ -255,7 +283,7 @@ public class TastingResourceIntTest {
         tastingService.save(tasting);
 
         // Search the tasting
-        restTastingMockMvc.perform(get("/api/_search/tastings?query=id:" + tasting.getId()))
+        restTastingMockMvc.perform(get("/api/_search/tastings?query=id:" + tasting.getId()).with(user("user")))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[*].id").value(hasItem(tasting.getId().intValue())))

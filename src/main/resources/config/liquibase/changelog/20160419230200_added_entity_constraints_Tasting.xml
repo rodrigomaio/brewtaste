@@ -14,5 +14,11 @@
                                  referencedColumnNames="id"
                                  referencedTableName="beer"/>
 
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="tasting"
+                                 constraintName="fk_tasting_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
     </changeSet>
 </databaseChangeLog>

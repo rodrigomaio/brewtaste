@@ -55,6 +55,9 @@ public class Tasting implements Serializable {
     @ManyToOne
     private Beer beer;
 
+    @ManyToOne
+    private User user;
+
     public Long getId() {
         return id;
     }
@@ -125,6 +128,14 @@ public class Tasting implements Serializable {
 
     public void setBeer(Beer beer) {
         this.beer = beer;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

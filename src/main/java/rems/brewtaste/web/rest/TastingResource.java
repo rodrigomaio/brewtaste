@@ -1,10 +1,6 @@
 package rems.brewtaste.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import rems.brewtaste.domain.Tasting;
-import rems.brewtaste.service.TastingService;
-import rems.brewtaste.web.rest.util.HeaderUtil;
-import rems.brewtaste.web.rest.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -13,7 +9,18 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import rems.brewtaste.domain.Tasting;
+import rems.brewtaste.domain.User;
+import rems.brewtaste.service.TastingService;
+import rems.brewtaste.service.UserService;
+import rems.brewtaste.web.rest.util.HeaderUtil;
+import rems.brewtaste.web.rest.util.PaginationUtil;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -21,10 +28,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
  * REST controller for managing Tasting.
@@ -34,10 +37,13 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class TastingResource {
 
     private final Logger log = LoggerFactory.getLogger(TastingResource.class);
-        
+
     @Inject
     private TastingService tastingService;
-    
+
+    @Inject
+    private UserService userService;
+
     /**
      * POST  /tastings : Create a new tasting.
      *
@@ -53,6 +59,12 @@ public class TastingResource {
         log.debug("REST request to save Tasting : {}", tasting);
         if (tasting.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("tasting", "idexists", "A new tasting cannot already have an ID")).body(null);
+        }
+        try {
+            final User user = userService.getUserWithAuthorities();
+            tasting.setUser(user);
+        } catch (NullPointerException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).headers(HeaderUtil.createFailureAlert("tasting", "nouser", "A new tasting must have an user")).body(null);
         }
         Tasting result = tastingService.save(tasting);
         return ResponseEntity.created(new URI("/api/tastings/" + result.getId()))
@@ -98,7 +110,7 @@ public class TastingResource {
     public ResponseEntity<List<Tasting>> getAllTastings(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Tastings");
-        Page<Tasting> page = tastingService.findAll(pageable); 
+        Page<Tasting> page = tastingService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tastings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

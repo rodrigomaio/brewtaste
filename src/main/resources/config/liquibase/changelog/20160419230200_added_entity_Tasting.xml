@@ -50,6 +50,7 @@
             </column>
             
             <column name="beer_id" type="bigint"/>
+            <column name="user_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="tasting" columnName="date" columnDataType="datetime"/>

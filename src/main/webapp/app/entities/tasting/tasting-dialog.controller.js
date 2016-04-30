@@ -5,12 +5,13 @@
         .module('brewtasteApp')
         .controller('TastingDialogController', TastingDialogController);
 
-    TastingDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Tasting', 'Beer'];
+    TastingDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', 'entity', 'Tasting', 'Beer', 'User'];
 
-    function TastingDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Tasting, Beer) {
+    function TastingDialogController ($timeout, $scope, $stateParams, $uibModalInstance, entity, Tasting, Beer, User) {
         var vm = this;
         vm.tasting = entity;
         vm.beers = Beer.query();
+        vm.users = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

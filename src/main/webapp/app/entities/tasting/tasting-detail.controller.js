@@ -5,9 +5,9 @@
         .module('brewtasteApp')
         .controller('TastingDetailController', TastingDetailController);
 
-    TastingDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Tasting', 'Beer'];
+    TastingDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'entity', 'Tasting', 'Beer', 'User'];
 
-    function TastingDetailController($scope, $rootScope, $stateParams, entity, Tasting, Beer) {
+    function TastingDetailController($scope, $rootScope, $stateParams, entity, Tasting, Beer, User) {
         var vm = this;
         vm.tasting = entity;
         
