@@ -1,8 +1,12 @@
 # BrewTaste
 
 [![Build Status](https://travis-ci.org/rodrigomaio/brewtaste.svg?branch=master)](https://travis-ci.org/rodrigomaio/brewtaste)
+[![Coverage Status](https://coveralls.io/repos/github/rodrigomaio/brewtaste/badge.svg?branch=master)](https://coveralls.io/github/rodrigomaio/brewtaste?branch=master)
 
 A log of tastings for sommeliers and beer enthusiasts.
+
+
+Live preview here: https://brewtaste.herokuapp.com
 
 
 ## Development
